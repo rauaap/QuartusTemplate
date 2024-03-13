@@ -3,10 +3,11 @@
 INTEL_FPGA_PATH="${HOME}/.intelFPGA_lite/23.1std"
 QUARTUS_PATH="${INTEL_FPGA_PATH}/quartus/bin"
 LICENSE_FILE="LR-158642_License.dat"
+PROJECT_PATH="$(dirname "$(readlink -f "$0")")"
 
 qactivate() {
     projectName="$1"
-    topLevelFile="src/${projectName}.vhd"
+    topLevelFile="${PROJECT_PATH}/src/${projectName}.vhd"
 
     family=${2:-'MAX 10'}
     part=${3:-'10M50DAF484C7G'}
