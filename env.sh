@@ -17,15 +17,16 @@ qactivate() {
 }
 
 qinit() {
-    mv src/quartusTemplate.vhd "$topLevelFile"
-    mv test/quartusTemplate.vht "test/${projectName}.vht"
-    mv quartusTemplate.qsf "${projectName}.qsf"
+    mv src/quartusTemplate.vhd "$topLevelFile" &&
+    mv test/quartusTemplate.vht "test/${projectName}.vht" &&
+    mv quartusTemplate.qsf "${projectName}.qsf" &&
 
-    sed -i "s/quartusTemplate/${projectName}/g" "$topLevelFile"
-    sed -i "s/quartusTemplate/${projectName}/g" "test/${projectName}.vht"
-    sed -i "s/quartusTemplate/${projectName}/g" "${projectName}.qsf"
+    sed -i "s/quartusTemplate/${projectName}/g" "$topLevelFile" &&
+    sed -i "s/quartusTemplate/${projectName}/g" "test/${projectName}.vht" &&
+    sed -i "s/quartusTemplate/${projectName}/g" "${projectName}.qsf" &&
 
     quartus_sh --set "NUM_PARALLEL_PROCESSORS=$(grep 'cpu cores' /proc/cpuinfo | uniq | cut -d' ' -f3)" "$projectName"
+    /bin/rm -rf .git readme.md
 }
 
 questa() {
