@@ -57,8 +57,12 @@ qanalysis() {
     quartus_sta "$projectName"
 }
 
+qide() {
+    quartus "${PROJECT_PATH}/${projectName}.qpf"
+}
+
 qdeactivate() {
-    unset qinit qprogram qbuild qanalysis qdeactivate
+    unset qinit qprogram qbuild qanalysis qdeactivate qide
     PATH="$(echo "$PATH" | sed -e "s|:${QUARTUS_PATH}||")"
     PS1="$(echo "$PS1" | sed -E -e "s/^\(quartus ${projectName}\) //")"
 }
