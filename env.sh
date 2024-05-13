@@ -48,8 +48,8 @@ qprogram() {
 }
 
 qbuild() {
-    quartus_map "$projectName" --source="$topLevelFile" --family="$family" --part="$part"
-    quartus_fit "$projectName" --part="$part" --pack_register=minimize_area
+    quartus_map "$projectName" --source="$topLevelFile" --family="$family" --part="$part" &&
+    quartus_fit "$projectName" --part="$part" --pack_register=minimize_area &&
     quartus_asm "$projectName"
 }
 
