@@ -47,10 +47,46 @@ qprogram() {
     quartus_pgm -c "$cable" -mJTAG -o "p;${binary}"
 }
 
-qbuild() {
+_qbuild() {
     quartus_map "$projectName" --source="$topLevelFile" --family="$family" --part="$part" &&
     quartus_fit "$projectName" --part="$part" --pack_register=minimize_area &&
     quartus_asm "$projectName"
+}
+
+qbuild() {
+    unset plain;
+    while getopts "p" opt; do
+      case $opt in
+        v)
+          plain='p'
+          ;;
+        \?)
+          echo "Invalid option: -$OPTARG" >&2
+          exit 1
+          ;;
+      esac
+    done
+
+    shift $((OPTIND-1))
+
+    end=$'\e[m'
+    red=$'\e[1;31m'
+    green=$'\e[1;32m'
+    yellow=$'\e[1;33m'
+    purple=$'\e[1;34m'
+    pink=$'\e[1;35m'
+    blue=$'\e[1;36m'
+
+    if [ -z "$plain" ]
+    then
+        _qbuild | sed -E \
+            -e '/^\s*Info/d' \
+            -e "s/(Line: [0-9]{1,5})/${pink}\1${end}/" \
+            -e "s/(File: [^ ]+)/${purple}\1${end}/" \
+            -e "s/^\s*(Critical )*(Warning)/${red}\1\2${end}/"
+    else
+        _qbuild
+    fi
 }
 
 qanalysis() {
