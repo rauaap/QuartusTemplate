@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-INTEL_FPGA_PATH="${HOME}/.intelFPGA_lite/23.1std"
+INTEL_FPGA_PATH="/opt/intelFPGA_lite/23.1std"
 QUARTUS_PATH="${INTEL_FPGA_PATH}/quartus/bin"
 LICENSE_FILE="LR-158642_License.dat"
 PROJECT_PATH="$(dirname "$(readlink -f "$0")")"
