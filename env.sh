@@ -41,7 +41,7 @@ qprogram() {
     if [ -z "$cable" ]
     then
         echo "No devices found!"
-        exit 1
+        return 1
     fi
 
     quartus_pgm -c "$cable" -mJTAG -o "p;${binary}"
@@ -62,7 +62,7 @@ qbuild() {
           ;;
         \?)
           echo "Invalid option: -$OPTARG" >&2
-          exit 1
+          return 1
           ;;
       esac
     done
